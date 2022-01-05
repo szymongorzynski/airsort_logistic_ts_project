@@ -1,0 +1,81 @@
+body {
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+}
+
+.main {
+   background-color: #CCC;
+   width: 800px;
+   height: 700px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   grid-template-rows: 50px 1fr 1fr 1fr 1fr;
+}
+
+.message {
+   grid-column: 1/5;
+   grid-row: 1;
+   height: 50px;
+   text-align: center;
+   font-size: 20px;
+   color: red;
+   font-weight: bold;
+}
+
+
+.airstrip {
+   grid-column: 1;
+   grid-row: 2/5;
+}
+
+.sortownia {
+   grid-column: 2;
+   grid-row: 2/4;
+}
+
+.magazyn {
+   grid-column: 3;
+   grid-row: 2/4;
+}
+
+.zr {
+   grid-column: 2/4;
+   grid-row: 4/5;
+}
+
+.zewnatrz {
+   grid-column: 1/4;
+   grid-row: 5;
+}
+
+.main div {
+   border: solid 2px #999;
+   user-select: none;
+   text-align: center;
+}
+
+ul {
+   border: solid 2px #999;
+   padding: 0;
+   margin: 0;
+   grid-column: 4;
+   grid-row: 2/6;
+}
+
+.active {
+   background-color: rgb(188, 255, 233);
+}
+
+li {
+   margin: 3px;
+   text-align: center;
+   background-color: #BBB;
+   list-style-type: none;
+   cursor: pointer;
+   user-select: none;
+}
+
+.selected {
+   background-color: cadetblue;
+}

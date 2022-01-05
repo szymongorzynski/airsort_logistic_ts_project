@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <script src="script.js" defer></script>
+   <link href="style.css" rel="stylesheet">
+</head>
+<body>
+   <div class="main">
+		<div class="message" id="message"></div>
+		<div class="airstrip" onclick="wybierz('airstrip',airstrip)">
+			<b>Airstrip</b>
+			<br>max. pojemność: 3
+			<br>akt. pojemność: <span id="airstrip">0</span>
+		</div>
+		<div class="sortownia" onclick="wybierz('sortownia', sortownia)">
+			<b>Sortownia</b>
+			<br>max. pojemność: 7
+			<br>akt. pojemność: <span id="sortownia">1</span>
+		</div>
+		<div class="magazyn" onclick="wybierz('magazyn', magazyn)">
+			<b>Magazyn</b>
+			<br>max. pojemność: 3
+			<br>akt. pojemność: <span id="magazyn">1</span>
+		</div>
+		<div class="zr" onclick="wybierz('zr', zr)">
+			<b>Załaduken/Rozładunek</b>
+			<br>max. pojemność: 5
+			<br>akt. pojemność: <span id="zr">1</span>
+		</div>
+		<div class="zewnatrz" onclick="wybierz('zewnatrz', zewnatrz)">
+			<b>Zewnątrz</b>
+			<br>max. pojemność: nieograniczona
+			<br>akt. pojemność: <span id="zewnatrz">9</span>
+		</div>
+		<ul class="list">
+			
+		</ul>
+	</div>
+</body>
+</html>

@@ -132,19 +132,18 @@ function sprawdzStrefe(strefa_docelowa: string, strefa_macierzysta:string): bool
 
 function Drzwi(osoba:Pracownik, strefa_docelowa:any, strefa_macierzysta:any, strefa_docelowa_str:string, wybrana_strefa_str:string) {
    if(sprawdzStrefe(strefa_docelowa_str, wybrana_strefa_str)) {
-      if(osoba.typ_karty == "Menadżer" && strefa_docelowa_str != "airstrip"){
-         Transfer(osoba, strefa_docelowa, strefa_macierzysta);
-      }
+      if(osoba.typ_karty == "Menadżer" && strefa_docelowa_str != "airstrip")
+         Transfer(osoba, strefa_docelowa, strefa_macierzysta)
       else if(strefa_docelowa.ktomozewejsc.indexOf(osoba.typ_karty) !== -1  ){
-        if((strefa_docelowa.pracownicy.length < strefa_docelowa.max_pojemnosc)) {
-           if(osoba.numer < 1000)
-              Transfer(osoba, strefa_docelowa, strefa_macierzysta);
-           else if(osoba.numer > 999 && strefa_docelowa != "airstrip") {
-              if(strefa_docelowa.pracownicy.length > 0)
-                 Transfer(osoba, strefa_docelowa, strefa_macierzysta);
-              else
-               wiadomosc('Wybrany pracownik jest dozorcą, ale strefa jest pusta!')
-           }
+         if((strefa_docelowa.pracownicy.length < strefa_docelowa.max_pojemnosc)) {
+            if(osoba.numer < 1000)
+               Transfer(osoba, strefa_docelowa, strefa_macierzysta);
+            else if(osoba.numer > 999 && strefa_docelowa != "airstrip") {
+               if(strefa_docelowa.pracownicy.length > 0)
+                  Transfer(osoba, strefa_docelowa, strefa_macierzysta);
+               else
+                  wiadomosc('Wybrany pracownik jest dozorcą, ale strefa jest pusta!')
+            }
         }
         else
          wiadomosc('Wybrana strefa jest pełna!')

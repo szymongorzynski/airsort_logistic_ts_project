@@ -30,15 +30,18 @@ class Zewnatrz {
 class Zr {
    max_pojemnosc: number = 5;
    ktomozewejsc: string[] = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer", "Pracownik Transportu"];
-   pracownicy: Pracownik[] = [{imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}];
+   pracownicy: Pracownik[] = [
+      {imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}
+   ];
 }
 
 class Sortownia {
    max_pojemnosc: number = 7;
    ktomozewejsc: string[] = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer"];
-   pracownicy: Pracownik[] = [{imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu"}];
+   pracownicy: Pracownik[] = [
+      {imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu"}
+   ];
 }
-
 
 class Magazyn {
    max_pojemnosc: number = 3;
@@ -59,17 +62,15 @@ var magazyn = new Magazyn();
 var airstrip = new Airstrip();
 
 var wybrany_pracownik:number = null
-
 var wybrana_strefa:any = null
 var wybrana_strefa_str:string = null
-
 var strefa_docelowa:any = null
 var strefa_docelowa_str:string = null
 
 var osoba:Pracownik = null;
 
 function wiadomosc(tekst: string) {
-   let message = document.getElementById('message');
+   let message = document.getElementById('message')
    message.innerText = tekst
 }
 
@@ -81,11 +82,11 @@ function zaznacz(id:number) {
 
 function generowanie(nazwa:any) {
    let list = document.querySelector('.list')
-   let lista = '';
+   let lista = ''
    for(let i=0; i<nazwa.pracownicy.length; i++) {
-      lista += '<li id="li_'+i+'" onclick="zaznacz('+i+')">'+nazwa.pracownicy[i].imie_i_nazwisko+'</li>';
+      lista += '<li id="li_'+i+'" onclick="zaznacz('+i+')">'+nazwa.pracownicy[i].imie_i_nazwisko+'</li>'
       }
-      list.innerHTML = lista;
+      list.innerHTML = lista
    }
 
 function updatePoj() {
@@ -103,30 +104,30 @@ function updatePoj() {
 
 
 function Transfer(osoba:Pracownik, strefa_docelowa:any, strefa_macierzysta:any) {
-   strefa_docelowa.pracownicy.push(osoba);
+   strefa_docelowa.pracownicy.push(osoba)
    strefa_macierzysta.pracownicy.forEach((element,index)=>{
    if(element.numer === osoba.numer) strefa_macierzysta.pracownicy.splice(index,1)
-   });
+   })
    wiadomosc('Przeniesienie pracownika udało się!')
-   updatePoj();
+   updatePoj()
 }
 
-function sprawdzStrefe(strefa_docelowa: string, strefa_macierzysta:string): boolean{
-   let strefy: Pary[]=[{strefa1: "zewnatrz", strefa2: "zr"}, 
-   {strefa1: "zr", strefa2: "sortownia"},
-   {strefa1: "sortownia", strefa2: "magazyn"},
-   {strefa1: "sortownia", strefa2: "airstrip"},
-   {strefa1: "zr", strefa2: "zewnatrz"}, 
-   {strefa1: "sortownia", strefa2: "zr"},
-   {strefa1: "magazyn", strefa2: "sortownia"},
-   {strefa1: "airstrip", strefa2: "sortownia"}]
+function sprawdzStrefe(strefa_docelowa: string, strefa_macierzysta:string): boolean {
+   let strefy: Pary[]=[
+      {strefa1: "zewnatrz", strefa2: "zr"}, 
+      {strefa1: "zr", strefa2: "sortownia"},
+      {strefa1: "sortownia", strefa2: "magazyn"},
+      {strefa1: "sortownia", strefa2: "airstrip"},
+      {strefa1: "zr", strefa2: "zewnatrz"}, 
+      {strefa1: "sortownia", strefa2: "zr"},
+      {strefa1: "magazyn", strefa2: "sortownia"},
+      {strefa1: "airstrip", strefa2: "sortownia"}
+   ]
    let s1 = strefa_docelowa
    let s2 = strefa_macierzysta
    for(let i=0; i<strefy.length; i++) {
-      if (s1 == strefy[i].strefa1 && s2 == strefy[i].strefa2 ){
-         return true
-      }
-}
+      if (s1 == strefy[i].strefa1 && s2 == strefy[i].strefa2 ) return true
+   }
 }
 
 function Drzwi(osoba:Pracownik, strefa_docelowa:any, strefa_macierzysta:any, strefa_docelowa_str:string, wybrana_strefa_str:string) {

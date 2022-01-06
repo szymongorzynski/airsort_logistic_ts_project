@@ -16,30 +16,25 @@ class Zewnatrz {
       {imie_i_nazwisko: "Remigiusz Mazurek", numer: 22, typ_karty: "Menadżer"},
       {imie_i_nazwisko: "Kornel Chmielewski", numer: 1128, typ_karty: "Dozorca"},
       {imie_i_nazwisko: "Marcel Malinowski", numer: 1032, typ_karty: "Dozorca"},
+      {imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu"},
       {imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni"},
       {imie_i_nazwisko: "Alex Ostrowski", numer: 412, typ_karty: "Pracownik Sortowni"},
-      {imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni"},
-      {imie_i_nazwisko: "Gniewomir Wróblewski ", numer: 154, typ_karty: "Pracownik Sortowni"},
-      {imie_i_nazwisko: "Dorian Kowalski ", numer: 123, typ_karty: "Pracownik Airstrip"},
-      {imie_i_nazwisko: "Maurycy Sokołowski", numer: 107, typ_karty: "Pracownik Airstrip"},
-      {imie_i_nazwisko: "Michał", numer: 7, typ_karty: "Menadżer"},
-      {imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip"}
+      {imie_i_nazwisko: "Gniewomir Wróblewski ", numer: 154, typ_karty: "Pracownik Sortowni"}
    ];
 }
 
 class Zr {
    max_pojemnosc: number = 5;
    ktomozewejsc: string[] = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer", "Pracownik Transportu"];
-   pracownicy: Pracownik[] = [
-      {imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}
-   ];
+   pracownicy: Pracownik[] = [{imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}];
 }
 
 class Sortownia {
    max_pojemnosc: number = 7;
    ktomozewejsc: string[] = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer"];
    pracownicy: Pracownik[] = [
-      {imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu"}
+      {imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni"},
+      {imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip"}
    ];
 }
 
@@ -51,7 +46,11 @@ class Magazyn {
 
 class Airstrip {
    max_pojemnosc: number = 3;
-   pracownicy: Pracownik[] = [];
+   pracownicy: Pracownik[] = [
+      {imie_i_nazwisko: "Dorian Kowalski ", numer: 123, typ_karty: "Pracownik Airstrip"},
+      {imie_i_nazwisko: "Maurycy Sokołowski", numer: 107, typ_karty: "Pracownik Airstrip"},
+      {imie_i_nazwisko: "Teofil Kowalski", numer: 112, typ_karty: "Pracownik Airstrip"}
+   ];
    ktomozewejsc: string[] = ["Pracownik Airstrip", "Menadżer"];
 }
 
@@ -197,3 +196,24 @@ function wybierz(nazwa_strefy:string, nazwa:any) {
       }
    }
 }
+
+function tester() {
+   console.log('Przeniesienie pracownika (Amir Woźniak) ze strefy sortownia do strefy magazyn!')
+   Drzwi({imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni"}, magazyn, sortownia, 'magazyn', 'sortownia')
+   
+   console.log('Próba przeniesienia pracownika (Ariel Szczepański) ze strefy sortownia do strefy airstrip w której jest już maksymalna liczba pracowników!')
+   Drzwi({imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip"}, airstrip, sortownia, 'airstrip', 'sortownia')
+
+   console.log('Próba przeniesienia pracownika (Błażej Szulc) ze strefy załadunek/rozładunek do strefy sortowni do której nie ma praw dostępu!')
+   Drzwi({imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}, sortownia, zr, 'sortownia', 'zr')
+    
+   console.log('Przeniesienie pracownika (Dobromił Baran) ze strefy zewnątrz do strefy załadunku/rozładunku!')
+   Drzwi({imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni"}, zr, zewnatrz, 'zr', 'zewnatrz')
+   
+   console.log('Próba przeniesienia dozorcy (Marcel Malinowski) ze strefy zewnątrz do strefy załadunku/rozładunku w której nie przebywa inny pracownik!')
+   Drzwi({imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu"}, zewnatrz, zr, 'zewnatrz', 'zr')
+   Drzwi({imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni"}, zewnatrz, zr, 'zewnatrz', 'zr')
+   Drzwi({imie_i_nazwisko: "Marcel Malinowski", numer: 1032, typ_karty: "Dozorca"}, zr, zewnatrz, 'zr', 'zewnatrz')
+}
+
+tester()

@@ -3,17 +3,13 @@ var Zewnatrz = /** @class */ (function () {
         this.max_pojemnosc = 100000000000000000000;
         this.ktomozewejsc = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer", "Pracownik Transportu"];
         this.pracownicy = [
-            { imie_i_nazwisko: "Reigiusz Mazurek", numer: 22, typ_karty: "Menadżer" },
+            { imie_i_nazwisko: "Remigiusz Mazurek", numer: 22, typ_karty: "Menadżer" },
             { imie_i_nazwisko: "Kornel Chmielewski", numer: 1128, typ_karty: "Dozorca" },
             { imie_i_nazwisko: "Marcel Malinowski", numer: 1032, typ_karty: "Dozorca" },
+            { imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu" },
             { imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni" },
             { imie_i_nazwisko: "Alex Ostrowski", numer: 412, typ_karty: "Pracownik Sortowni" },
-            { imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni" },
-            { imie_i_nazwisko: "Gniewomir Wróblewski ", numer: 154, typ_karty: "Pracownik Sortowni" },
-            { imie_i_nazwisko: "Dorian Kowalski ", numer: 123, typ_karty: "Pracownik Airstrip" },
-            { imie_i_nazwisko: "Maurycy Sokołowski", numer: 107, typ_karty: "Pracownik Airstrip" },
-            { imie_i_nazwisko: "Michał", numer: 7, typ_karty: "Menadżer" },
-            { imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip" }
+            { imie_i_nazwisko: "Gniewomir Wróblewski ", numer: 154, typ_karty: "Pracownik Sortowni" }
         ];
     }
     return Zewnatrz;
@@ -30,7 +26,10 @@ var Sortownia = /** @class */ (function () {
     function Sortownia() {
         this.max_pojemnosc = 7;
         this.ktomozewejsc = ["Pracownik Sortowni", "Pracownik Airstrip", "Dozorca", "Menadżer"];
-        this.pracownicy = [{ imie_i_nazwisko: "Cezary Kaźmierczak", numer: 665, typ_karty: "Pracownik Transportu" }];
+        this.pracownicy = [
+            { imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni" },
+            { imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip" }
+        ];
     }
     return Sortownia;
 }());
@@ -45,7 +44,11 @@ var Magazyn = /** @class */ (function () {
 var Airstrip = /** @class */ (function () {
     function Airstrip() {
         this.max_pojemnosc = 3;
-        this.pracownicy = [];
+        this.pracownicy = [
+            { imie_i_nazwisko: "Dorian Kowalski ", numer: 123, typ_karty: "Pracownik Airstrip" },
+            { imie_i_nazwisko: "Maurycy Sokołowski", numer: 107, typ_karty: "Pracownik Airstrip" },
+            { imie_i_nazwisko: "Teofil Kowalski", numer: 112, typ_karty: "Pracownik Airstrip" }
+        ];
         this.ktomozewejsc = ["Pracownik Airstrip", "Menadżer"];
     }
     return Airstrip;
@@ -101,27 +104,27 @@ function Transfer(osoba, strefa_docelowa, strefa_macierzysta) {
     updatePoj();
 }
 function sprawdzStrefe(strefa_docelowa, strefa_macierzysta) {
-    var strefy = [{ strefa1: "zewnatrz", strefa2: "zr" },
+    var strefy = [
+        { strefa1: "zewnatrz", strefa2: "zr" },
         { strefa1: "zr", strefa2: "sortownia" },
         { strefa1: "sortownia", strefa2: "magazyn" },
         { strefa1: "sortownia", strefa2: "airstrip" },
         { strefa1: "zr", strefa2: "zewnatrz" },
         { strefa1: "sortownia", strefa2: "zr" },
         { strefa1: "magazyn", strefa2: "sortownia" },
-        { strefa1: "airstrip", strefa2: "sortownia" }];
+        { strefa1: "airstrip", strefa2: "sortownia" }
+    ];
     var s1 = strefa_docelowa;
     var s2 = strefa_macierzysta;
     for (var i = 0; i < strefy.length; i++) {
-        if (s1 == strefy[i].strefa1 && s2 == strefy[i].strefa2) {
+        if (s1 == strefy[i].strefa1 && s2 == strefy[i].strefa2)
             return true;
-        }
     }
 }
 function Drzwi(osoba, strefa_docelowa, strefa_macierzysta, strefa_docelowa_str, wybrana_strefa_str) {
     if (sprawdzStrefe(strefa_docelowa_str, wybrana_strefa_str)) {
-        if (osoba.typ_karty == "Menadżer" && strefa_docelowa_str != "airstrip") {
+        if (osoba.typ_karty == "Menadżer" && strefa_docelowa_str != "airstrip")
             Transfer(osoba, strefa_docelowa, strefa_macierzysta);
-        }
         else if (strefa_docelowa.ktomozewejsc.indexOf(osoba.typ_karty) !== -1) {
             if ((strefa_docelowa.pracownicy.length < strefa_docelowa.max_pojemnosc)) {
                 if (osoba.numer < 1000)
@@ -184,3 +187,18 @@ function wybierz(nazwa_strefy, nazwa) {
         }
     }
 }
+function tester() {
+    console.log('Przeniesienie pracownika (Amir Woźniak) ze strefy sortownia do strefy magazyn!');
+    Drzwi({ imie_i_nazwisko: "Amir Woźniak", numer: 351, typ_karty: "Pracownik Sortowni" }, magazyn, sortownia, 'magazyn', 'sortownia');
+    console.log('Próba przeniesienia pracownika (Ariel Szczepański) ze strefy sortownia do strefy airstrip w której jest już maksymalna liczba pracowników!');
+    Drzwi({ imie_i_nazwisko: "Ariel Szczepański", numer: 186, typ_karty: "Pracownik Airstrip" }, airstrip, sortownia, 'airstrip', 'sortownia');
+    console.log('Próba przeniesienia pracownika (Błażej Szulc) ze strefy załadunek/rozładunek do strefy sortowni do której nie ma praw dostępu!');
+    Drzwi({ imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu" }, sortownia, zr, 'sortownia', 'zr');
+    console.log('Przeniesienie pracownika (Dobromił Baran) ze strefy zewnątrz do strefy załadunku/rozładunku!');
+    Drzwi({ imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni" }, zr, zewnatrz, 'zr', 'zewnatrz');
+    console.log('Próba przeniesienia dozorcy (Marcel Malinowski) ze strefy zewnątrz do strefy załadunku/rozładunku w której nie przebywa inny pracownik!');
+    Drzwi({ imie_i_nazwisko: "Błażej Szulc", numer: 725, typ_karty: "Pracownik Transportu" }, zewnatrz, zr, 'zewnatrz', 'zr');
+    Drzwi({ imie_i_nazwisko: "Dobromił Baran", numer: 230, typ_karty: "Pracownik Sortowni" }, zewnatrz, zr, 'zewnatrz', 'zr');
+    Drzwi({ imie_i_nazwisko: "Marcel Malinowski", numer: 1032, typ_karty: "Dozorca" }, zr, zewnatrz, 'zr', 'zewnatrz');
+}
+tester();
